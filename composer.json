@@ -1,0 +1,51 @@
+{
+    "name": "hiqdev/omnipay-bitpay",
+    "type": "library",
+    "description": "BitPay driver for Omnipay PHP payment libray",
+    "keywords": [
+        "omnipay",
+        "bitpay",
+        "php",
+        "merchant",
+        "payment"
+    ],
+    "homepage": "https://github.com/hiqdev/omnipay-bitpay",
+    "license": "MIT",
+    "support": {
+        "email": "support@hiqdev.com",
+        "source": "https://github.com/hiqdev/omnipay-bitpay",
+        "issues": "https://github.com/hiqdev/omnipay-bitpay/issues",
+        "wiki": "https://github.com/hiqdev/omnipay-bitpay/wiki",
+        "forum": "http://forum.hiqdev.com/"
+    },
+    "authors": [
+        {
+            "name": "Andrii Vasyliev",
+            "role": "Project lead",
+            "email": "sol@hiqdev.com",
+            "homepage": "http://hipanel.com/"
+        },
+        {
+            "name": "Dmitry Naumenko",
+            "role": "Lead backend developer",
+            "email": "d.naumenko.a@gmail.com",
+            "homepage": "http://silverfire.me/"
+        },
+        {
+            "name": "Andrey Klochok",
+            "role": "Lead frontend developer",
+            "email": "andreyklochok@gmail.com",
+            "homepage": "http://hiqdev.com/"
+        },
+        {
+            "name": "Yuriy Myronchuk",
+            "role": "QA Lead",
+            "email": "bladeroot@gmail.com",
+            "homepage": "http://hiqdev.com/"
+        }
+    ],
+    "require-dev": {
+        "hiqdev/hidev-php": "<2.0 || dev-master",
+        "hiqdev/hidev-hiqdev": "<2.0 || dev-master"
+    }
+}
