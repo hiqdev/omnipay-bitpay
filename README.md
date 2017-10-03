@@ -5,6 +5,7 @@
 [![Build Status](https://img.shields.io/travis/hiqdev/omnipay-bitpay.svg)](https://travis-ci.org/hiqdev/omnipay-bitpay)
 [![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/hiqdev/omnipay-bitpay.svg)](https://scrutinizer-ci.com/g/hiqdev/omnipay-bitpay/)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/hiqdev/omnipay-bitpay.svg)](https://scrutinizer-ci.com/g/hiqdev/omnipay-bitpay/)
+[![Dependency Status](https://www.versioneye.com/php/hiqdev:omnipay-bitpay/dev-master/badge.svg)](https://www.versioneye.com/php/hiqdev:omnipay-bitpay/dev-master)
 
 [Omnipay](https://github.com/omnipay/omnipay) is a framework agnostic, multi-gateway payment
 processing library for PHP 5.3+.
@@ -34,4 +35,4 @@ to the require section of your composer.json.
 This project is released under the terms of the MIT [license](LICENSE).
 Read more [here](http://choosealicense.com/licenses/mit).
 
-Copyright © 2015-2017, HiQDev (http://hiqdev.com/)
+Copyright © 2017, HiQDev (http://hiqdev.com/)

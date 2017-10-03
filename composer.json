@@ -44,8 +44,18 @@
             "homepage": "http://hiqdev.com/"
         }
     ],
+    "require": {
+        "omnipay/common": "~2.3"
+    },
     "require-dev": {
+        "omnipay/tests": "*",
         "hiqdev/hidev-php": "<2.0 || dev-master",
         "hiqdev/hidev-hiqdev": "<2.0 || dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Omnipay\\BitPay\\": "src",
+            "Omnipay\\BitPay\\Tests\\": "tests"
+        }
     }
 }
