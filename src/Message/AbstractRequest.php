@@ -25,6 +25,11 @@ use Omnipay\BitPay\Factory\StringStorage;
  */
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
+    protected function getKeyStorage()
+    {
+        return new StringStorage();
+    }
+
     public function getToken()
     {
         return $this->getParameter('token');
@@ -44,14 +49,52 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         $privateKey = $storage->load($this->getPrivateKey());
         $publicKey = $storage->load($this->getPublicKey());
 
+        $token = new Token();
+        $token->setToken($this->getToken());
+
         $client = new Client();
-        $client->setToken(new Token($this->getToken()));
+        $client->setToken($token);
         $client->setPrivateKey($privateKey);
         $client->setPublicKey($publicKey);
         $client->setNetwork($this->getTestMode() ? new Testnet() : new Livenet());
         $client->setAdapter(new CurlAdapter());
 
         return $client;
+    }
+
+    public function getPrivateKeyObject()
+    {
+        return $this->getKeyStorage()->load($this->getPrivateKey());
+    }
+
+    public function getPublicKeyObject()
+    {
+        return $this->getKeyStorage()->load($this->getPublicKey());
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function buildPosData($data = [])
+    {
+        $array = array_merge([
+            'd' => time(),
+        ], $data);
+
+        return [
+            'hash' => $this->signPosData($array),
+            'posData' => $array,
+        ];
+    }
+
+    /**
+     * @param array $data
+     * @return string the signature
+     */
+    public function signPosData($data)
+    {
+        return crypt(md5(serialize($data)), $this->getPublicKeyObject()->getHex());
     }
 
     public function getPrivateKey()

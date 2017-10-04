@@ -52,7 +52,7 @@ class PurchaseResponse extends AbstractResponse
 
     public function getRedirectUrl()
     {
-        return $this->data->getRedirectUrl();
+        return $this->data->getUrl();
     }
 
     public function getRedirectMethod()

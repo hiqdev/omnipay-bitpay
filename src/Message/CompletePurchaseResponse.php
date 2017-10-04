@@ -12,6 +12,7 @@
 namespace Omnipay\BitPay\Message;
 
 use Bitpay\InvoiceInterface;
+use Omnipay\Common\Exception\InvalidResponseException;
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
 
@@ -33,6 +34,8 @@ class CompletePurchaseResponse extends AbstractResponse
     public function __construct(RequestInterface $request, InvoiceInterface $data)
     {
         parent::__construct($request, $data);
+
+        $this->checkPosData();
     }
 
     /**
@@ -72,10 +75,30 @@ class CompletePurchaseResponse extends AbstractResponse
     }
 
     /**
+     * @return bool
+     */
+    public function isStatusExceptional()
+    {
+        return in_array($this->getData()->getExceptionStatus(), ['paidPartial', 'paidOver']);
+    }
+
+    /**
      * {@inheritdoc}
      * @return string
      */
     public function getAmount()
+    {
+        if ($this->isStatusExceptional()) {
+            return $this->getData()->getBtcPrice() * $this->getData()->getRate();
+        }
+
+        return $this->data->getPrice();
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequestedAmount()
     {
         return $this->data->getPrice();
     }
@@ -138,5 +161,19 @@ class CompletePurchaseResponse extends AbstractResponse
     public function getData()
     {
         return parent::getData();
+    }
+
+    protected function checkPosData()
+    {
+        $data = @json_decode($this->getPosData(), true);
+        if ($data === null || !isset($data['hash']) || !isset($data['posData'])) {
+            throw new InvalidResponseException('Failed to decode JSON');
+        }
+
+        $posData = $data['posData'];
+        $hash = $data['hash'];
+        if ($hash !== $this->request->signPosData($posData)) {
+            throw new InvalidResponseException('Invalid signature');
+        }
     }
 }

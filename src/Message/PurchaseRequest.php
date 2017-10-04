@@ -31,7 +31,7 @@ class PurchaseRequest extends AbstractRequest
         $this->validate(
             'privateKey', 'publicKey', 'token',
             'transactionReference', 'description',
-            'price', 'currency',
+            'amount', 'currency',
             'returnUrl', 'cancelUrl', 'notifyUrl'
         );
     }
@@ -50,10 +50,24 @@ class PurchaseRequest extends AbstractRequest
         $invoice->setCurrency(new Currency($this->getCurrency()));
         $invoice->setRedirectUrl($this->getReturnUrl());
         $invoice->setNotificationUrl($this->getNotifyUrl());
+        $invoice->setPosData(json_encode($this->buildPosData()));
 
         $response = $this->getClient()->createInvoice($invoice);
 
         return $this->response = new PurchaseResponse($this, $response);
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function buildPosData($data = [])
+    {
+        return parent::buildPosData([
+            'c' => $this->getDescription(),
+            's' => $this->getAmount(),
+            'u' => $this->getTransactionReference(),
+        ]);
     }
 
     /**
