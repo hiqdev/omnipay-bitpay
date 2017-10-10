@@ -22,13 +22,12 @@ class CompletePurchaseRequest extends AbstractRequest
      */
     public function getData()
     {
-        $this->validate('transactionId', 'privateKey', 'publicKey', 'token');
+        $this->validate('transactionReference', 'privateKey', 'publicKey', 'token');
     }
-
 
     public function setId($value)
     {
-        $this->setTransactionId($value);
+        $this->setTransactionReference($value);
     }
 
     /**
@@ -38,7 +37,7 @@ class CompletePurchaseRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $invoice = $this->getClient()->getInvoice($this->getTransactionId());
+        $invoice = $this->getClient()->getInvoice($this->getTransactionReference());
 
         return $this->response = new CompletePurchaseResponse($this, $invoice);
     }

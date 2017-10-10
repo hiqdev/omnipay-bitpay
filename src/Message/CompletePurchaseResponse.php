@@ -53,7 +53,7 @@ class CompletePurchaseResponse extends AbstractResponse
      */
     public function getTransactionId()
     {
-        return $this->data->getId();
+        return isset($this->getPosData()['posData']['u']) ? $this->getPosData()['posData']['u'] : '';
     }
 
     /**
@@ -148,11 +148,11 @@ class CompletePurchaseResponse extends AbstractResponse
     }
 
     /**
-     * @return string
+     * @return array
      */
     public function getPosData()
     {
-        return $this->data->getPosData();
+        return @json_decode($this->data->getPosData(), true);
     }
 
     /**
@@ -165,7 +165,7 @@ class CompletePurchaseResponse extends AbstractResponse
 
     protected function checkPosData()
     {
-        $data = @json_decode($this->getPosData(), true);
+        $data = $this->getPosData();
         if ($data === null || !isset($data['hash']) || !isset($data['posData'])) {
             throw new InvalidResponseException('Failed to decode JSON');
         }

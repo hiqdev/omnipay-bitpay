@@ -30,7 +30,7 @@ class PurchaseRequest extends AbstractRequest
     {
         $this->validate(
             'privateKey', 'publicKey', 'token',
-            'transactionReference', 'description',
+            'transactionId', 'description',
             'amount', 'currency',
             'returnUrl', 'cancelUrl', 'notifyUrl'
         );
@@ -66,7 +66,7 @@ class PurchaseRequest extends AbstractRequest
         return parent::buildPosData([
             'c' => $this->getDescription(),
             's' => $this->getAmount(),
-            'u' => $this->getTransactionReference(),
+            'u' => $this->getTransactionId(),
         ]);
     }
 
