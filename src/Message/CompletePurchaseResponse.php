@@ -89,10 +89,10 @@ class CompletePurchaseResponse extends AbstractResponse
     public function getAmount()
     {
         if ($this->isStatusExceptional()) {
-            return $this->getData()->getBtcPrice() * $this->getData()->getRate();
+            return (string)($this->getData()->getBtcPrice() * $this->getData()->getRate());
         }
 
-        return $this->data->getPrice();
+        return (string)$this->data->getPrice();
     }
 
     /**
