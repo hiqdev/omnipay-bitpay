@@ -62,7 +62,7 @@ class CompletePurchaseResponse extends AbstractResponse
      */
     public function getTransactionReference()
     {
-        return $this->data->getOrderId();
+        return $this->data->getId();
     }
 
     /**
@@ -129,7 +129,7 @@ class CompletePurchaseResponse extends AbstractResponse
     {
         $buyer = $this->data->getBuyer();
 
-        return $buyer->getFirstName() . ' ' . $buyer->getLastName() . ' / ' . $buyer->getEmail();
+        return $this->getTransactionReference() . ' ' . $buyer->getFirstName() . ' ' . $buyer->getLastName() . ' / ' . $buyer->getEmail();
     }
 
     /**
