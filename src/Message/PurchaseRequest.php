@@ -78,7 +78,7 @@ class PurchaseRequest extends AbstractRequest
         $item = new Item();
         $item->setCode($this->getTransactionReference());
         $item->setDescription($this->getDescription());
-        $item->setPrice($this->getAmount());
+        $item->setPrice((float)$this->getAmount()); // Cast to float to prevent exception in php-bitpay layer
 
         return $item;
     }
