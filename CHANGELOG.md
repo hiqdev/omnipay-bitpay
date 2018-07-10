@@ -1,5 +1,6 @@
-
 ## [Under development]
+
+## [0.1.0] - 2018-07-10
 
 ## [Development started] - 2017-10-03
 
@@ -12,3 +13,4 @@
 [@BladeRoot]: https://github.com/BladeRoot
 [bladeroot@gmail.com]: https://github.com/BladeRoot
 [Under development]: https://github.com/hiqdev/omnipay-bitpay/releases
+[0.1.0]: https://github.com/hiqdev/omnipay-bitpay/releases/tag/0.1.0
