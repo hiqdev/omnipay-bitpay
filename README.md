@@ -35,4 +35,4 @@ to the require section of your composer.json.
 This project is released under the terms of the MIT [license](LICENSE).
 Read more [here](http://choosealicense.com/licenses/mit).
 
-Copyright © 2017, HiQDev (http://hiqdev.com/)
+Copyright © 2017-2018, HiQDev (http://hiqdev.com/)
