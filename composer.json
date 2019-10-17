@@ -45,13 +45,18 @@
         }
     ],
     "require": {
-        "omnipay/common": "~2.3",
-        "bitpay/php-client": "^2.2.20"
+        "omnipay/common": "^3.0",
+        "bitpay/php-client": "^2.2.20",
+        "omnipay/tests": "^3.0"
     },
     "require-dev": {
-        "omnipay/tests": "*",
         "hiqdev/hidev-php": "<2.0 || dev-master",
         "hiqdev/hidev-hiqdev": "<2.0 || dev-master"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0.x-dev"
+        }
     },
     "autoload": {
         "psr-4": {
