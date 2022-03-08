@@ -46,10 +46,10 @@
     ],
     "require": {
         "omnipay/common": "^3.0",
-        "bitpay/php-client": "^2.2.20",
-        "omnipay/tests": "^3.0"
+        "bitpay/php-client": "^2.2.20"
     },
     "require-dev": {
+        "omnipay/tests": "^3.0",
         "hiqdev/hidev-php": "<2.0 || dev-master",
         "hiqdev/hidev-hiqdev": "<2.0 || dev-master"
     },
