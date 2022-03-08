@@ -20,6 +20,10 @@
 
 ## [Development started] - 2017-10-03
 
+## [3.0.1] - 2022-03-08
+
+    - [d38134c] 2022-03-08 Bump to 3.0.1 [@SilverFire]
+
 [@hiqsol]: https://github.com/hiqsol
 [sol@hiqdev.com]: https://github.com/hiqsol
 [@SilverFire]: https://github.com/SilverFire
@@ -44,3 +48,5 @@
 [1bb3a5a]: https://github.com/hiqdev/omnipay-bitpay/commit/1bb3a5a
 [3.0]: https://github.com/hiqdev/omnipay-bitpay/compare/0.1.0...3.0
 [3.0.0]: https://github.com/hiqdev/omnipay-bitpay/compare/0.1.0...3.0.0
+[d38134c]: https://github.com/hiqdev/omnipay-bitpay/commit/d38134c
+[Development started]: https://github.com/hiqdev/omnipay-bitpay/compare/3.0.1...Development started
