@@ -11,8 +11,7 @@
 
 namespace Omnipay\BitPay\Message;
 
-use Bitpay\Invoice;
-use Bitpay\InvoiceInterface;
+use BitPaySDKLight\Model\Invoice\Invoice;
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
 
@@ -27,11 +26,11 @@ class PurchaseResponse extends AbstractResponse
     public $request;
 
     /**
-     * @var InvoiceInterface|Invoice
+     * @var Invoice
      */
     protected $data;
 
-    public function __construct(RequestInterface $request, InvoiceInterface $data)
+    public function __construct(RequestInterface $request, Invoice $data)
     {
         parent::__construct($request, $data);
     }

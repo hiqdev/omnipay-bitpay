@@ -46,7 +46,8 @@
     ],
     "require": {
         "omnipay/common": "~2.3",
-        "bitpay/php-client": "^2.2.20"
+        "bitpay/php-client": "^2.2.20",
+        "bitpay/sdk-light": "^2.0"
     },
     "require-dev": {
         "omnipay/tests": "*",

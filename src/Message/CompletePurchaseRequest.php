@@ -11,6 +11,10 @@
 
 namespace Omnipay\BitPay\Message;
 
+use BitPaySDKLight\Exceptions\BitPayException;
+use BitPaySDKLight\Exceptions\InvoiceQueryException;
+use Omnipay\Common\Exception\InvalidRequestException;
+
 /**
  * BitPay Complete Purchase Request.
  */
@@ -18,7 +22,9 @@ class CompletePurchaseRequest extends AbstractRequest
 {
     /**
      * Get the data for this request.
-     * @return array request data
+     *
+     * @return void request data
+     * @throws InvalidRequestException
      */
     public function getData()
     {
@@ -32,8 +38,12 @@ class CompletePurchaseRequest extends AbstractRequest
 
     /**
      * Send the request with specified data.
+     *
      * @param mixed $data The data to send
+     *
      * @return CompletePurchaseResponse
+     * @throws BitPayException
+     * @throws InvoiceQueryException
      */
     public function sendData($data)
     {
