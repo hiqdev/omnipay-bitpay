@@ -51,17 +51,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         ], $data);
 
         return [
-            'hash' => $this->signPosData($array),
             'posData' => $array,
         ];
-    }
-
-    /**
-     * @param array $data
-     * @return string the signature
-     */
-    public function signPosData($data)
-    {
-        return crypt(md5(serialize($data)), $this->getPublicKeyObject()->getHex());
     }
 }

@@ -23,6 +23,7 @@ class PurchaseRequest extends AbstractRequest
      * Get the data for this request.
      *
      * @return array request data
+     * @throws InvalidRequestException
      */
     public function getData()
     {
@@ -32,12 +33,22 @@ class PurchaseRequest extends AbstractRequest
             'amount', 'currency',
             'returnUrl', 'notifyUrl'
         );
+
+        return [
+            'amount'        => $this->getAmount(),
+            'currency_code' => strtoupper($this->getCurrency()),
+            'notify_url'    => $this->getNotifyUrl(),
+            'return'        => $this->getReturnUrl(),
+            'item_number'   => $this->getTransactionId(),
+            'item_name'     => $this->getDescription(),
+        ];
     }
 
     /**
      * Send the request with specified data.
      *
      * @param mixed $data The data to send
+     *
      * @return PurchaseResponse
      */
     public function sendData($data)
@@ -48,7 +59,7 @@ class PurchaseRequest extends AbstractRequest
         $basicInvoice->setRedirectURL($this->getReturnUrl());
         $basicInvoice->setNotificationURL($this->getNotifyUrl());
         $basicInvoice->setPosData(json_encode($this->buildPosData()));
-        $basicInvoice->setItemCode($this->getTransactionReference());
+//        $basicInvoice->setItemCode($this->getTransactionReference());
         $basicInvoice->setItemDesc($this->getDescription());
 
         $invoice = $bitpay->createInvoice($basicInvoice);
