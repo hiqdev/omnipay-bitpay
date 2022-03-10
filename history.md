@@ -1,5 +1,9 @@
 ## [Under development]
 
+## [3.0.0] - 2019-10-17
+
+    - [1bb3a5a] 2019-10-17 Update to Omnipay v3 [@SilverFire]
+
 ## [0.1.0] - 2018-07-10
 
     - [f267533] 2018-07-10 hideved [@SilverFire]
@@ -16,6 +20,12 @@
 
 ## [Development started] - 2017-10-03
 
+## [3.0.1] - 2022-03-08
+
+    - [d38134c] 2022-03-08 Bump to 3.0.1 [@SilverFire]
+
+## [dev] - 2022-03-08
+
 [@hiqsol]: https://github.com/hiqsol
 [sol@hiqdev.com]: https://github.com/hiqsol
 [@SilverFire]: https://github.com/SilverFire
@@ -25,7 +35,7 @@
 [@BladeRoot]: https://github.com/BladeRoot
 [bladeroot@gmail.com]: https://github.com/BladeRoot
 [6eb6c6a]: https://github.com/hiqdev/omnipay-bitpay/commit/6eb6c6a
-[Under development]: https://github.com/hiqdev/omnipay-bitpay/releases
+[Under development]: https://github.com/hiqdev/omnipay-bitpay/compare/0.1.0...HEAD
 [f267533]: https://github.com/hiqdev/omnipay-bitpay/commit/f267533
 [6ba8cd3]: https://github.com/hiqdev/omnipay-bitpay/commit/6ba8cd3
 [63a7da8]: https://github.com/hiqdev/omnipay-bitpay/commit/63a7da8
@@ -37,3 +47,9 @@
 [9667898]: https://github.com/hiqdev/omnipay-bitpay/commit/9667898
 [0083c82]: https://github.com/hiqdev/omnipay-bitpay/commit/0083c82
 [0.1.0]: https://github.com/hiqdev/omnipay-bitpay/releases/tag/0.1.0
+[1bb3a5a]: https://github.com/hiqdev/omnipay-bitpay/commit/1bb3a5a
+[3.0]: https://github.com/hiqdev/omnipay-bitpay/compare/0.1.0...3.0
+[3.0.0]: https://github.com/hiqdev/omnipay-bitpay/compare/0.1.0...3.0.0
+[d38134c]: https://github.com/hiqdev/omnipay-bitpay/commit/d38134c
+[Development started]: https://github.com/hiqdev/omnipay-bitpay/compare/3.0.1...Development started
+[3.0.1]: https://github.com/hiqdev/omnipay-bitpay/compare/dev...3.0.1
