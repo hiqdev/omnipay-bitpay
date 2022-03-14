@@ -35,12 +35,12 @@ class PurchaseRequest extends AbstractRequest
         );
 
         return [
-            'amount'        => $this->getAmount(),
+            'amount' => $this->getAmount(),
             'currency_code' => strtoupper($this->getCurrency()),
-            'notify_url'    => $this->getNotifyUrl(),
-            'return'        => $this->getReturnUrl(),
-            'item_number'   => $this->getTransactionId(),
-            'item_name'     => $this->getDescription(),
+            'notifyUrl' => $this->getNotifyUrl(),
+            'return' => $this->getReturnUrl(),
+            'item_number' => $this->getTransactionId(),
+            'item_name' => $this->getDescription(),
         ];
     }
 
@@ -50,6 +50,9 @@ class PurchaseRequest extends AbstractRequest
      * @param mixed $data The data to send
      *
      * @return PurchaseResponse
+     * @throws InvalidRequestException
+     * @throws \BitPaySDKLight\Exceptions\BitPayException
+     * @throws \BitPaySDKLight\Exceptions\InvoiceCreationException
      */
     public function sendData($data)
     {
@@ -59,7 +62,6 @@ class PurchaseRequest extends AbstractRequest
         $basicInvoice->setRedirectURL($this->getReturnUrl());
         $basicInvoice->setNotificationURL($this->getNotifyUrl());
         $basicInvoice->setPosData(json_encode($this->buildPosData()));
-//        $basicInvoice->setItemCode($this->getTransactionReference());
         $basicInvoice->setItemDesc($this->getDescription());
 
         $invoice = $bitpay->createInvoice($basicInvoice);

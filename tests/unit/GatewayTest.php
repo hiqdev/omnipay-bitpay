@@ -1,12 +1,14 @@
 <?php
 
-namespace Omnipay\BitPay;
+namespace Omnipay\BitPay\Tests;
 
+use Omnipay\BitPay\Gateway;
 use Omnipay\Tests\GatewayTestCase;
 
 class GatewayTest extends GatewayTestCase
 {
     public $gateway;
+
     private $testMode = true;
     private $token = 'CFJCZH3VitcEER9Uybx8LMvkPsSWzpSWvN4vhNEJp47b';
     private $transactionId = 'test12345test';
@@ -18,7 +20,7 @@ class GatewayTest extends GatewayTestCase
     {
         parent::setUp();
 
-        $this->gateway = new Gateway(null, $this->getHttpRequest());
+        $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
         $this->gateway->setToken($this->token);
         $this->gateway->setTestMode($this->testMode);
     }
@@ -29,26 +31,26 @@ class GatewayTest extends GatewayTestCase
         $this->assertSame($this->testMode, $this->gateway->getTestMode());
     }
 
-        public function testCompletePurchase()
-        {
-            $request = $this->gateway->completePurchase(['transactionId' => $this->transactionId]);
+    public function testCompletePurchase()
+    {
+        $request = $this->gateway->completePurchase(['transactionId' => $this->transactionId]);
 
-            $this->assertSame($this->testMode, $request->getTestMode());
-            $this->assertSame($this->transactionId, $request->getTransactionId());
-        }
+        $this->assertSame($this->testMode, $request->getTestMode());
+        $this->assertSame($this->transactionId, $request->getTransactionId());
+    }
 
-    public function testpurchase()
+    public function testPurchase()
     {
         $request = $this->gateway->purchase([
-            'transactionid' => $this->transactionId,
-            'description'   => $this->description,
-            'currency'      => $this->currency,
-            'amount'        => $this->amount,
+            'transactionId' => $this->transactionId,
+            'description' => $this->description,
+            'currency' => $this->currency,
+            'amount' => $this->amount,
         ]);
 
-        $this->assertsame($this->transactionId, $request->gettransactionid());
-        $this->assertsame($this->description, $request->getDescription());
-        $this->assertsame($this->currency, $request->getCurrency());
-        $this->assertsame($this->amount, $request->getAmount());
+        $this->assertSame($this->transactionId, $request->gettransactionid());
+        $this->assertSame($this->description, $request->getDescription());
+        $this->assertSame($this->currency, $request->getCurrency());
+        $this->assertSame($this->amount, $request->getAmount());
     }
 }

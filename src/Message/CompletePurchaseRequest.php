@@ -1,14 +1,5 @@
 <?php
 
-/*
- * PayPal driver for Omnipay PHP payment library
- *
- * @link      https://github.com/hiqdev/omnipay-paypal
- * @package   omnipay-paypal
- * @license   MIT
- * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
- */
-
 namespace Omnipay\BitPay\Message;
 
 use BitPaySDKLight\Exceptions\BitPayException;
@@ -28,7 +19,9 @@ class CompletePurchaseRequest extends AbstractRequest
      */
     public function getData()
     {
-        $this->validate('transactionId', 'privateKey', 'publicKey', 'token');
+        $this->validate('transactionId', 'token');
+
+        return $this->httpRequest->request->all();
     }
 
     public function setId($value)

@@ -62,7 +62,7 @@ class PurchaseResponse extends AbstractResponse
     public function getRedirectData()
     {
         return [
-            'id' => $this->data->getId()
+            'id' => $this->data->getId(),
         ];
     }
 }
