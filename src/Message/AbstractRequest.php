@@ -11,13 +11,9 @@
 
 namespace Omnipay\BitPay\Message;
 
-use Bitpay\Client\Adapter\CurlAdapter;
-use Bitpay\Client\Client;
-use Bitpay\Client\ClientInterface;
-use Bitpay\Network\Livenet;
-use Bitpay\Network\Testnet;
-use Bitpay\Token;
-use Omnipay\BitPay\Factory\StringStorage;
+use BitPaySDKLight\Client;
+use BitPaySDKLight\Env;
+use BitPaySDKLight\Exceptions\BitPayException;
 
 /**
  * PayPal Abstract Request.
@@ -25,11 +21,6 @@ use Omnipay\BitPay\Factory\StringStorage;
  */
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
-    protected function getKeyStorage()
-    {
-        return new StringStorage();
-    }
-
     public function getToken()
     {
         return $this->getParameter('token');
@@ -41,35 +32,12 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     }
 
     /**
-     * @return ClientInterface
+     * @return Client
+     * @throws BitPayException
      */
-    protected function getClient()
+    protected function getClient(): Client
     {
-        $storage = new StringStorage();
-        $privateKey = $storage->load($this->getPrivateKey());
-        $publicKey = $storage->load($this->getPublicKey());
-
-        $token = new Token();
-        $token->setToken($this->getToken());
-
-        $client = new Client();
-        $client->setToken($token);
-        $client->setPrivateKey($privateKey);
-        $client->setPublicKey($publicKey);
-        $client->setNetwork($this->getTestMode() ? new Testnet() : new Livenet());
-        $client->setAdapter(new CurlAdapter());
-
-        return $client;
-    }
-
-    public function getPrivateKeyObject()
-    {
-        return $this->getKeyStorage()->load($this->getPrivateKey());
-    }
-
-    public function getPublicKeyObject()
-    {
-        return $this->getKeyStorage()->load($this->getPublicKey());
+        return new Client($this->getToken(), $this->getTestMode() ? Env::Test : Env::Prod);
     }
 
     /**
@@ -83,37 +51,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         ], $data);
 
         return [
-            'hash' => $this->signPosData($array),
             'posData' => $array,
         ];
-    }
-
-    /**
-     * @param array $data
-     * @return string the signature
-     */
-    public function signPosData($data)
-    {
-        return crypt(md5(serialize($data)), $this->getPublicKeyObject()->getHex());
-    }
-
-    public function getPrivateKey()
-    {
-        return $this->getParameter('privateKey');
-    }
-
-    public function setPrivateKey($value)
-    {
-        return $this->setParameter('privateKey', $value);
-    }
-
-    public function getPublicKey()
-    {
-        return $this->getParameter('publicKey');
-    }
-
-    public function setPublicKey($value)
-    {
-        return $this->setParameter('publicKey', $value);
     }
 }

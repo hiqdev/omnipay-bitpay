@@ -11,10 +11,8 @@
 
 namespace Omnipay\BitPay\Message;
 
-use Bitpay\Currency;
-use Bitpay\Invoice;
-use Bitpay\Item;
-use Bitpay\ItemInterface;
+use BitPaySDKLight\Model\Invoice\Invoice;
+use Omnipay\Common\Exception\InvalidRequestException;
 
 /**
  * PayPal Complete Purchase Request.
@@ -25,41 +23,57 @@ class PurchaseRequest extends AbstractRequest
      * Get the data for this request.
      *
      * @return array request data
+     * @throws InvalidRequestException
      */
     public function getData()
     {
         $this->validate(
-            'privateKey', 'publicKey', 'token',
+            'token',
             'transactionId', 'description',
             'amount', 'currency',
-            'returnUrl', 'cancelUrl', 'notifyUrl'
+            'returnUrl', 'notifyUrl'
         );
+
+        return [
+            'amount' => $this->getAmount(),
+            'currency_code' => strtoupper($this->getCurrency()),
+            'notifyUrl' => $this->getNotifyUrl(),
+            'return' => $this->getReturnUrl(),
+            'item_number' => $this->getTransactionId(),
+            'item_name' => $this->getDescription(),
+        ];
     }
 
     /**
      * Send the request with specified data.
      *
      * @param mixed $data The data to send
+     *
      * @return PurchaseResponse
+     * @throws InvalidRequestException
+     * @throws \BitPaySDKLight\Exceptions\BitPayException
+     * @throws \BitPaySDKLight\Exceptions\InvoiceCreationException
      */
     public function sendData($data)
     {
-        $invoice = new Invoice();
-        $invoice->setFullNotifications(true);
-        $invoice->setItem($this->createItem());
-        $invoice->setCurrency(new Currency($this->getCurrency()));
-        $invoice->setRedirectUrl($this->getReturnUrl());
-        $invoice->setNotificationUrl($this->getNotifyUrl());
-        $invoice->setPosData(json_encode($this->buildPosData()));
+        $bitpay = $this->getClient();
+        $basicInvoice = new Invoice((float)$this->getAmount(), $this->getCurrency());
+        $basicInvoice->setFullNotifications(true);
+        $basicInvoice->setRedirectURL($this->getReturnUrl());
+        $basicInvoice->setNotificationURL($this->getNotifyUrl());
+        $basicInvoice->setPosData(json_encode($this->buildPosData()));
+        $basicInvoice->setItemDesc($this->getDescription());
 
-        $response = $this->getClient()->createInvoice($invoice);
+        $invoice = $bitpay->createInvoice($basicInvoice);
 
-        return $this->response = new PurchaseResponse($this, $response);
+        return $this->response = new PurchaseResponse($this, $invoice);
     }
 
     /**
      * @param array $data
+     *
      * @return array
+     * @throws InvalidRequestException
      */
     protected function buildPosData($data = [])
     {
@@ -68,18 +82,5 @@ class PurchaseRequest extends AbstractRequest
             's' => $this->getAmount(),
             'u' => $this->getTransactionId(),
         ]);
-    }
-
-    /**
-     * @return Item|ItemInterface
-     */
-    protected function createItem()
-    {
-        $item = new Item();
-        $item->setCode($this->getTransactionReference());
-        $item->setDescription($this->getDescription());
-        $item->setPrice((float)$this->getAmount()); // Cast to float to prevent exception in php-bitpay layer
-
-        return $item;
     }
 }

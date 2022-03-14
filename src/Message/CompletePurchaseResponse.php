@@ -11,7 +11,9 @@
 
 namespace Omnipay\BitPay\Message;
 
-use Bitpay\InvoiceInterface;
+use BitPaySDKLight\Model\Invoice\Buyer;
+use BitPaySDKLight\Model\Invoice\Invoice;
+use BitPaySDKLight\Model\Invoice\InvoiceStatus;
 use Omnipay\Common\Exception\InvalidResponseException;
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
@@ -27,11 +29,11 @@ class CompletePurchaseResponse extends AbstractResponse
     public $request;
 
     /**
-     * @var InvoiceInterface
+     * @var Invoice
      */
     protected $data;
 
-    public function __construct(RequestInterface $request, InvoiceInterface $data)
+    public function __construct(RequestInterface $request, Invoice $data)
     {
         parent::__construct($request, $data);
 
@@ -44,7 +46,7 @@ class CompletePurchaseResponse extends AbstractResponse
      */
     public function isSuccessful()
     {
-        return $this->data->getStatus() === InvoiceInterface::STATUS_CONFIRMED || $this->data->getStatus() === InvoiceInterface::STATUS_COMPLETE;
+        return $this->data->getStatus() === InvoiceStatus::Confirmed || $this->data->getStatus() === InvoiceStatus::Complete;
     }
 
     /**
@@ -53,7 +55,7 @@ class CompletePurchaseResponse extends AbstractResponse
      */
     public function getTransactionId()
     {
-        return isset($this->getPosData()['posData']['u']) ? $this->getPosData()['posData']['u'] : '';
+        return $this->data->getId();
     }
 
     /**
@@ -89,7 +91,7 @@ class CompletePurchaseResponse extends AbstractResponse
     public function getAmount()
     {
         if ($this->isStatusExceptional()) {
-            return (string)($this->getData()->getBtcPrice() * $this->getData()->getRate());
+            return (string)$this->getData()->getAmount();
         }
 
         return (string)$this->data->getPrice();
@@ -118,7 +120,7 @@ class CompletePurchaseResponse extends AbstractResponse
      */
     public function getCurrency()
     {
-        return strtoupper($this->data->getCurrency()->getCode());
+        return strtoupper($this->data->getCurrency());
     }
 
     /**
@@ -129,7 +131,7 @@ class CompletePurchaseResponse extends AbstractResponse
     {
         $buyer = $this->data->getBuyer();
 
-        return $this->getTransactionReference() . ' ' . $buyer->getFirstName() . ' ' . $buyer->getLastName() . ' / ' . $buyer->getEmail();
+        return $this->getTransactionReference() . ' ' . $buyer->getName() . ' / ' . $buyer->getEmail();
     }
 
     /**
@@ -144,7 +146,7 @@ class CompletePurchaseResponse extends AbstractResponse
             return $time->format('c');
         }
 
-        return date('c', $time/1000); // time in ms
+        return date('c', $time / 1000); // time in ms
     }
 
     /**
@@ -156,7 +158,7 @@ class CompletePurchaseResponse extends AbstractResponse
     }
 
     /**
-     * @return InvoiceInterface
+     * @return Invoice
      */
     public function getData()
     {
@@ -166,14 +168,8 @@ class CompletePurchaseResponse extends AbstractResponse
     protected function checkPosData()
     {
         $data = $this->getPosData();
-        if ($data === null || !isset($data['hash']) || !isset($data['posData'])) {
+        if ($data === null || !isset($data['posData'])) {
             throw new InvalidResponseException('Failed to decode JSON');
-        }
-
-        $posData = $data['posData'];
-        $hash = $data['hash'];
-        if ($hash !== $this->request->signPosData($posData)) {
-            throw new InvalidResponseException('Invalid signature');
         }
     }
 }

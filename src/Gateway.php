@@ -48,26 +48,6 @@ class Gateway extends AbstractGateway
         return $this->setParameter('token', $value);
     }
 
-    public function getPrivateKey()
-    {
-        return $this->getParameter('privateKey');
-    }
-
-    public function setPrivateKey($value)
-    {
-        return $this->setParameter('privateKey', $value);
-    }
-
-    public function getPublicKey()
-    {
-        return $this->getParameter('publicKey');
-    }
-
-    public function setPublicKey($value)
-    {
-        return $this->setParameter('publicKey', $value);
-    }
-
     /**
      * @param array $parameters
      * @return PurchaseRequest|\Omnipay\Common\Message\AbstractRequest
