@@ -1,16 +1,11 @@
 # BitPay driver for Omnipay PHP payment libray
 
 [![GitHub Actions](https://github.com/hiqdev/omnipay-bitpay/workflows/Tests/badge.svg)](https://github.com/hiqdev/omnipay-bitpay/actions)
-
 [![Latest Stable Version](https://poser.pugx.org/hiqdev/omnipay-bitpay/v/stable)](https://packagist.org/packages/hiqdev/omnipay-bitpay)
 [![Total Downloads](https://poser.pugx.org/hiqdev/omnipay-bitpay/downloads)](https://packagist.org/packages/hiqdev/omnipay-bitpay)
-[![Build Status](https://img.shields.io/travis/hiqdev/omnipay-bitpay.svg)](https://travis-ci.org/hiqdev/omnipay-bitpay)
-[![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/hiqdev/omnipay-bitpay.svg)](https://scrutinizer-ci.com/g/hiqdev/omnipay-bitpay/)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/hiqdev/omnipay-bitpay.svg)](https://scrutinizer-ci.com/g/hiqdev/omnipay-bitpay/)
-[![Dependency Status](https://www.versioneye.com/php/hiqdev:omnipay-bitpay/dev-master/badge.svg)](https://www.versioneye.com/php/hiqdev:omnipay-bitpay/dev-master)
 
 [Omnipay](https://github.com/omnipay/omnipay) is a framework agnostic, multi-gateway payment
-processing library for PHP 5.3+.
+processing library for PHP 7.1+.
 
 This package implements [BitPay](https://bitpay.com/) support for Omnipay.
 
