@@ -14,7 +14,7 @@ class CompletePurchaseResponseTest extends TestCase
 
     private $token = '';
     private $description = 'Test Transaction long description';
-    private $transactionId = 'S4hVo7z6XZQ3yDUyHyUJD7';
+    private $transactionId = 'someTransactionId';
     private $transactionReference = 'S4hVo7z6XZQ3yDUyHyUJD7';
     private $status = InvoiceStatus::Complete;
     private $amount = '14.01';
@@ -41,9 +41,9 @@ class CompletePurchaseResponseTest extends TestCase
         $invoice = new Invoice($this->amount, $this->currency);
         $invoice->setFullNotifications(true);
         $invoice->setItemDesc($this->description);
-        $invoice->setPosData(json_encode(['posData' => []]));
+        $invoice->setPosData(json_encode(['posData' => ['u' => $this->transactionId]]));
         $invoice->setStatus($this->status);
-        $invoice->setId($this->transactionId);
+        $invoice->setId($this->transactionReference);
         $response = new CompletePurchaseResponse($this->request, $invoice);
 
         $this->assertTrue($response->isSuccessful());
@@ -52,7 +52,7 @@ class CompletePurchaseResponseTest extends TestCase
         $this->assertSame($this->transactionId, $response->getTransactionId());
         $this->assertSame($this->transactionReference, $response->getTransactionReference());
         $this->assertSame('14.01', $response->getAmount());
-        $this->assertStringContainsString($this->transactionId, $response->getPayer());
+        $this->assertStringContainsString($this->transactionReference, $response->getPayer());
         $this->assertSame($this->currency, $response->getCurrency());
     }
 }

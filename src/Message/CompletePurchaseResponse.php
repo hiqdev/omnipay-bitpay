@@ -55,7 +55,7 @@ class CompletePurchaseResponse extends AbstractResponse
      */
     public function getTransactionId()
     {
-        return $this->data->getId();
+        return $this->getPosData()['posData']['u'];
     }
 
     /**
