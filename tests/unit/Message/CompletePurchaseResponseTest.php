@@ -52,7 +52,7 @@ class CompletePurchaseResponseTest extends TestCase
         $this->assertSame($this->transactionId, $response->getTransactionId());
         $this->assertSame($this->transactionReference, $response->getTransactionReference());
         $this->assertSame('14.01', $response->getAmount());
-        $this->assertContains($this->transactionId, $response->getPayer());
+        $this->assertStringContainsString($this->transactionId, $response->getPayer());
         $this->assertSame($this->currency, $response->getCurrency());
     }
 }
