@@ -1,5 +1,7 @@
 # BitPay driver for Omnipay PHP payment libray
 
+[![GitHub Actions](https://github.com/hiqdev/omnipay-bitpay/workflows/Tests/badge.svg)](https://github.com/hiqdev/omnipay-bitpay/actions)
+
 [![Latest Stable Version](https://poser.pugx.org/hiqdev/omnipay-bitpay/v/stable)](https://packagist.org/packages/hiqdev/omnipay-bitpay)
 [![Total Downloads](https://poser.pugx.org/hiqdev/omnipay-bitpay/downloads)](https://packagist.org/packages/hiqdev/omnipay-bitpay)
 [![Build Status](https://img.shields.io/travis/hiqdev/omnipay-bitpay.svg)](https://travis-ci.org/hiqdev/omnipay-bitpay)
